@@ -1,0 +1,42 @@
+POST localhost:8080/api/jobs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3MDg0ODQ4MSwiZXhwIjoxNzcxNzEyNDgxfQ.eWtlYNZKAA5m6xjcpRzZ-ZuKyIz5ciDb5cYlN252wTo
+
+
+
+{
+  "title": "testing",
+  "description": "Testing software application",
+  "company": "Tech Corp"
+}
+
+###
+GET localhost:8080/api/jobs/all
+#Authorization: Basic user fc801990-45cb-46b4-9919-ac5b21593008
+
+###
+POST http://localhost:8080/api/applications/apply/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzcwOTIwMzE1LCJleHAiOjE3NzE3ODQzMTV9.E3xLMBwm9OOpDIRE4EzMy0x2D8dL5BGQTP773iSrT3A
+
+###
+POST localhost:8080/api/users/
+Content-Type: application/json
+
+{
+  "username": "lamtd",
+  "email": "lamtd225729@gmail.com",
+  "password": "1234",
+  "authProvider": "LOCAL",
+  "role": "APPLICANT"
+}
+
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+Authorization: Basic user@example.com user123
+###
+GET localhost:8080/api/auth/details
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzcwODU5MDY4LCJleHAiOjE3NzE3MjMwNjh9.5E2jdRpAwklet1-FL6DQcS8XfGBJ1NDElKjy8fuUjQ8

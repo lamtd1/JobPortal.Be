@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: lamtd
+      MYSQL_USER: lamtd
+      MYSQL_PASSWORD: lamtd
+      MYSQL_DATABASE: jobportal
+    ports:
+      - "3307:3306"

@@ -24,7 +24,10 @@ public class JwtService {
     private String SECRET_KEY;
 
     @Value("${jwt.expiration}")
-    private long EXPIRATION_TIME;
+    private long ACCESS_EXPIRATION_TIME = 60000;
+
+    @Value("${jwt.refresh-expiration}")
+    private long REFRESH_EXPIRATION_TIME;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
@@ -57,15 +60,19 @@ public class JwtService {
                 .getBody();
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateAccessToken(UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails, ACCESS_EXPIRATION_TIME);
+    }
+
+    public String generateRefreshToken(UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails, REFRESH_EXPIRATION_TIME);
     }
 
     // generate token với extra info
-    public String generateToken(
+    public String generateTokenWithExtraInfo(
             Map<String, Object> extraClaims,
             UserDetails userDetails) {
-        return buildToken(extraClaims, userDetails, EXPIRATION_TIME);
+        return buildToken(extraClaims, userDetails, ACCESS_EXPIRATION_TIME);
 
     }
 

@@ -39,10 +39,7 @@ public class AuthService {
                                 .build();
 
                 userRepository.save(user);
-                var jwtToken = jwtService.generateToken(user);
-                return AuthenticationResponse.builder()
-                                .token(jwtToken)
-                                .build();
+                return buildTokenResponse(user);
         }
 
         public AuthenticationResponse login(AuthenticationRequest request) {
@@ -52,9 +49,31 @@ public class AuthService {
                                                 request.getPassword()));
                 var user = userRepository.findByEmail(request.getEmail())
                                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-                var jwtToken = jwtService.generateToken(user);
+                return buildTokenResponse(user);
+        }
+
+        // Dùng refresh token để lấy access token mới
+        public AuthenticationResponse refreshToken(String refreshToken) {
+                String email = jwtService.extractUsername(refreshToken);
+                var user = userRepository.findByEmail(email)
+                                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+                if (!jwtService.isTokenValid(refreshToken, user)) {
+                        throw new RuntimeException("Invalid refresh token");
+                }
+
+                // Chỉ trả access token mới, giữ nguyên refresh token
                 return AuthenticationResponse.builder()
-                                .token(jwtToken)
+                                .accessToken(jwtService.generateAccessToken(user))
+                                .refreshToken(refreshToken)
+                                .build();
+        }
+
+        // Helper: tạo cả access + refresh token
+        private AuthenticationResponse buildTokenResponse(User user) {
+                return AuthenticationResponse.builder()
+                                .accessToken(jwtService.generateAccessToken(user))
+                                .refreshToken(jwtService.generateRefreshToken(user))
                                 .build();
         }
 

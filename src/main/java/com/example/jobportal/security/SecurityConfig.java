@@ -44,6 +44,7 @@ public class SecurityConfig {
                 return new JwtAuthFilter(jwtService, userDetailsService);
         }
 
+        // Chain sẽ intercept mọi request và check token
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter)
                         throws Exception {

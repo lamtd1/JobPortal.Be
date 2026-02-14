@@ -4,6 +4,7 @@ import com.example.jobportal.job.model.Job;
 import com.example.jobportal.job.service.JobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class JobController {
 
     // Create a new job
     @PostMapping("/jobs")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)

@@ -6,9 +6,10 @@ Content-Type: application/json
 
 {
   "displayName": "Test User",
-  "email": "test12345@example.com",
+  "email": "thitga.muoi123@gmail.com",
   "password": "password123"
 }
+
 
 ### ===========================
 ### 2. LOGIN - Đăng nhập bằng email/password
@@ -18,25 +19,30 @@ POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test123@example.com",
+  "email": "thitga.muoi@gmail.com",
   "password": "password123"
 }
 
+###
+POST http://localhost:8080/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9..."
+}
 ### ===========================
 ### 3. GET JOBS
 ### ===========================
 GET http://localhost:8080/api/jobs/all
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaWF0IjoxNzcxMTA1MzYyLCJleHAiOjE3NzExMDg5NjJ9.wk5oFVKCdPNa58CIYhXJA33wY24JrfeEhbpezsiqhEw
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGl0Z2EubXVvaUBnbWFpbC5jb20iLCJpYXQiOjE3NzExMTMwNzQsImV4cCI6MTc3MTExMzY3NH0.gX8Iv7DPMmxkZX_uS0L95K9RuC6C3Ac0F6QZgRbuBUE
 ### ===========================
 ### 4. CREATE JOB - Cần token (paste token từ login response)
-###    Thay {{token}} bằng JWT thực
 ### ===========================
+
 POST http://localhost:8080/api/jobs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEyMzRAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzExMDU1NjUsImV4cCI6MTc3MTEwOTE2NX0.j9jHTLFjBXQpilYFZTiWabXpTWXN2v6I-XaAIXy2dCc
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGl0Z2EubXVvaUBnbWFpbC5jb20iLCJpYXQiOjE3NzExMTMwNzQsImV4cCI6MTc3MTExMzY3NH0.gX8Iv7DPMmxkZX_uS0L95K9RuC6C3Ac0F6QZgRbuBUE
 {
   "title": "Software Engineer",
   "description": "Testing software application",
@@ -45,11 +51,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEyMzRAZXhhbXBsZS5jb
 
 ### ===========================
 ### 5. APPLY JOB - Cần token
-###    Thay {{token}} bằng JWT thực
 ### ===========================
 POST http://localhost:8080/api/applications/apply/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaWF0IjoxNzcxMTA1MzYyLCJleHAiOjE3NzExMDg5NjJ9.wk5oFVKCdPNa58CIYhXJA33wY24JrfeEhbpezsiqhEw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGl0Z2EubXVvaUBnbWFpbC5jb20iLCJpYXQiOjE3NzExMTIyNTcsImV4cCI6MTc3MzcwNDI1N30.9U7KHwmsZ2ylGG6NUDJLRobL_cf4HRPgpAHXWt6QXUo
 
 ### ===========================
 ### 6. REGISTER ADMIN - Tạo admin user

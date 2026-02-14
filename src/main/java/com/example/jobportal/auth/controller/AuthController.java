@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jobportal.auth.dto.AuthenticationRequest;
 import com.example.jobportal.auth.dto.AuthenticationResponse;
+import com.example.jobportal.auth.dto.RefreshTokenRequest;
 import com.example.jobportal.auth.dto.RegisterRequest;
 import com.example.jobportal.auth.service.AuthService;
 import com.example.jobportal.user.model.Role;
@@ -40,5 +41,12 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+    // Dùng refresh token để lấy access token mới
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthenticationResponse> refresh(
+            @RequestBody RefreshTokenRequest request) {
+        return ResponseEntity.ok(authService.refreshToken(request.getRefreshToken()));
     }
 }

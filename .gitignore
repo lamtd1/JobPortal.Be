@@ -35,4 +35,3 @@ build/
 # secrets
 .env
 client_secret_*.json
-application.properties

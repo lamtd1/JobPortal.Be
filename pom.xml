@@ -88,6 +88,13 @@
 
 		</dependency>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- TODO: Uncomment khi enable OAuth2
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
@@ -96,8 +103,10 @@
 			<artifactId>google-api-client</artifactId>
 			<version>1.33.0</version>
 		</dependency>
+		-->
 
-	</dependencies>
+	
+ </dependencies>
 
 	<build>
 		<plugins>

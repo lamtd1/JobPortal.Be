@@ -1,0 +1,48 @@
+package com.example.jobportal.security;
+
+import java.io.IOException;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+
+import com.example.jobportal.user.model.AuthProvider;
+import com.example.jobportal.user.model.Role;
+import com.example.jobportal.user.model.User;
+import com.example.jobportal.user.repository.UserRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+        private final UserRepository userRepository;
+        private final JwtService jwtService;
+
+        @Override
+        public void onAuthenticationSuccess(
+                        HttpServletRequest request,
+                        HttpServletResponse response,
+                        Authentication authentication) throws IOException {
+                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+
+                String email = oAuth2User.getAttribute("email");
+                String name = oAuth2User.getAttribute("name");
+
+                User user = userRepository.findByEmail(email)
+                                .orElseGet(() -> {
+                                        User newUser = User.builder()
+                                                        .email(email)
+                                                        .displayName(name)
+                                                        .authProvider(AuthProvider.GOOGLE)
+                                                        .role(Role.APPLICANT)
+                                                        .build();
+                                        return userRepository.save(newUser);
+                                });
+
+                String token = jwtService.generateToken(user);
+                response.sendRedirect(
+                                "http://localhost:5173/oauth-success?token=" + token);
+        }
+}
